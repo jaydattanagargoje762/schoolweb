@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Admission</title>
+  <link rel="stylesheet" href="/static/home.css" />
+  <link rel="stylesheet" href="/static/auth.css" />
+  <style>
+    .container{max-width:800px;margin:32px auto;padding:0 16px}
+    .card{background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,0.08)}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .row-1{display:grid;grid-template-columns:1fr;gap:12px}
+    label{font-size:12px;color:#374151}
+    .input, select, textarea{border:1px solid #d1d5db;border-radius:8px;padding:8px 10px;width:100%}
+    .btn{background:#2563eb;color:#fff;border:none;border-radius:8px;padding:10px 14px;cursor:pointer}
+    .toolbar{display:flex;gap:10px;margin-bottom:12px}
+    /* Ensure no global overlays from homepage block clicks on admin pages */
+    .modal, .modal-backdrop, .header-particles, .scroll-progress { display: none !important; }
+    .btn { pointer-events: auto; position: relative; z-index: 10; }
+    .container, .card { position: relative; z-index: 5; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="toolbar">
+      <a class="btn" href="/admin/admissions">Back to Admissions</a>
+      <a class="btn" href="/admin/dashboard">Dashboard</a>
+    </div>
+
+    <div class="card">
+      <h1 style="margin-top:0;">Edit Admission</h1>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form id="editAdmissionForm" method="post" action="/admin/admissions/{{ adm.id }}/edit">
+        <div class="row">
+          <div>
+            <label>Name</label>
+            <input class="input" type="text" name="name" value="{{ adm.name }}" required />
+          </div>
+          <div>
+            <label>Status</label>
+            <select class="input" name="status" required>
+              <option value="pending" {{ 'selected' if adm.status=='pending' else '' }}>Pending</option>
+              <option value="confirmed" {{ 'selected' if adm.status=='confirmed' else '' }}>Confirmed</option>
+              <option value="rejected" {{ 'selected' if adm.status=='rejected' else '' }}>Rejected</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Roll No (required if Confirmed)</label>
+            <input class="input" type="text" name="roll_no" value="{{ adm.roll_no or '' }}" />
+          </div>
+          <div>
+            <label>Class</label>
+            <input class="input" type="text" name="class_name" value="{{ adm.class_name or '' }}" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Section</label>
+            <input class="input" type="text" name="section" value="{{ adm.section or '' }}" />
+          </div>
+          <div>
+            <label>Phone</label>
+            <input class="input" type="text" name="phone" value="{{ adm.phone or '' }}" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Email</label>
+            <input class="input" type="email" name="email" value="{{ adm.email or '' }}" />
+          </div>
+          <div>
+            <label>Address</label>
+            <input class="input" type="text" name="address" value="{{ adm.address or '' }}" />
+          </div>
+        </div>
+
+        <div style="margin-top:12px;">
+          <button class="btn" type="submit" onclick="(function(btn){ var f = btn && btn.form; if(!f) return; if (typeof f.requestSubmit === 'function') { f.requestSubmit(); } else { f.submit(); } })(this); return false;">Update Admission</button>
+        </div>
+      </form>
+      </div>
+</body>
+</html>

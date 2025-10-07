@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class Attendance - Teacher</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='clone.css') }}" />
+  <style>
+    body { background:#f8fafc; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin:0; }
+    .wrap { max-width: 100%; width:100%; margin: 0; padding: 0; }
+    .header { display:flex; align-items:center; justify-content:space-between; margin: 0; padding: 10px 12px; }
+    .title { font-weight:800; font-size: 20px; }
+    .card { background:transparent; border-radius:0; box-shadow:none; padding: 0; }
+    .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 8px; }
+    .btn { padding:8px 12px; border:none; border-radius:8px; background:#3b82f6; color:#fff; font-weight:700; cursor:pointer; position:relative; z-index:10; pointer-events:auto; }
+    table { width:100%; border-collapse: collapse; }
+    th, td { padding:2px 4px; border-bottom:1px solid #e5e7eb; text-align:center; font-size:11px; position:relative; }
+    input[type=checkbox] { width:16px; height:16px; cursor:pointer; position:relative; z-index:5; pointer-events:auto; margin:0; }
+    .filter { display:flex; gap:8px; align-items:end; margin:0; flex-wrap:wrap; }
+    .input, select, input[type=date] { width:100%; padding:8px 10px; border:1px solid #e2e8f0; border-radius:8px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div class="title">📅 Class Attendance</div>
+      <div style="display:flex; align-items:center; gap:6px; flex-wrap:nowrap;">
+        <a href="{{ url_for('teacher_dashboard') }}" class="btn" style="background:#64748b">Back</a>
+        <a href="{{ url_for('teacher_logout') }}" class="btn" style="background:#ef4444">Logout</a>
+      </div>
+    </div>
+
+    <!-- Filter form removed per request: open sheet should not show class/section/date controls -->
+
+    <!-- Summary of current selection -->
+    <div class="card" style="margin:12px 0;">
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;">
+        <div><strong>Teacher:</strong> {{ teacher.name }}</div>
+        <div><strong>Class:</strong> {{ selected_class or 'All' }}</div>
+        <div><strong>Date:</strong> {{ date_val.strftime('%d-%m') }}</div>
+        <div><strong>Total Students:</strong> {{ students|length }}</div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <input type="checkbox" id="selectAll" aria-label="Select all present" />
+          <label for="selectAll" class="muted" style="cursor:pointer;">Select all</label>
+        </div>
+      </div>
+      {# Removed preview of first few students per request #}
+    </div>
+
+    <form id="attendanceForm" class="card" method="post" action="{{ url_for('teacher_attendance_bulk') }}">
+      <input type="hidden" name="class_name" value="{{ selected_class or '' }}" />
+      <!-- Base date determines the month for which the grid is shown -->
+      <input type="hidden" name="date" value="{{ date_val.isoformat() }}" />
+
+      <div style="overflow:auto; margin-top:12px; position:relative; z-index:1;">
+        <table>
+          <thead id="monthHeader">
+            <tr>
+              <th>Roll No</th>
+              <th>Name</th>
+              <th>All</th>
+              {% for d in date_list %}
+                <th style="white-space:nowrap; text-align:center">
+                  <div style="display:flex; flex-direction:column; align-items:center; gap:2px;">
+                    <input type="text" class="col-date-dm" value="{{ d.strftime('%d-%m') }}" data-default-dm="{{ d.strftime('%d-%m') }}" data-col-index="{{ loop.index0 }}" aria-label="Edit column day-month {{ loop.index }}" title="Edit column day-month (DD-MM)" placeholder="DD-MM" style="width:56px; font-size:11px; text-align:center;" />
+                    <input type="checkbox" class="col-toggle" data-col-index="{{ loop.index0 }}" aria-label="Select all present for this day" title="Select all for this day" />
+                  </div>
+                </th>
+              {% endfor %}
+              <th>Avg</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for s in students %}
+            <tr>
+              <td>{{ s.roll_no }}<input type="hidden" name="student_id" value="{{ s.id }}" /></td>
+              <td>{{ s.name }}</td>
+              <td>
+                <input type="checkbox" class="row-toggle" data-student-id="{{ s.id }}" aria-label="Select all days for {{ s.name }}" title="Select all days for this student" />
+              </td>
+              {% for d in date_list %}
+              <td style="text-align:center">
+                <input type="checkbox" data-student-id="{{ s.id }}" data-col-index="{{ loop.index0 }}" title="Present: {{ s.name }} on {{ d.strftime('%d-%m') }}" {% if (s.id ~ '_' ~ d.isoformat()) in present_keys %}checked{% endif %} />
+              </td>
+              {% endfor %}
+              <td><span class="avg" data-student-id="{{ s.id }}">0%</span></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:12px; position:relative; z-index:5;"><button class="btn" type="submit">Save Monthly Attendance</button></div>
+    </form>
+    <script>
+      document.addEventListener('DOMContentLoaded', function(){
+        const form = document.getElementById('attendanceForm');
+        // Select-all toggles every day's checkbox for all students
+        const selectAll = document.getElementById('selectAll');
+        function updateRowAverage(sid){
+          const checks = document.querySelectorAll('input[type="checkbox"][data-student-id="' + sid + '"][data-col-index]');
+          const total = checks.length;
+          if (!total) return;
+          let present = 0;
+          checks.forEach(cb => { if (cb.checked) present++; });
+          const avgEl = document.querySelector('.avg[data-student-id="' + sid + '"]');
+          if (avgEl) avgEl.textContent = Math.round((present / total) * 100) + '%';
+        }
+        function updateAllAverages(){
+          const ids = Array.from(document.querySelectorAll('input.row-toggle')).map(x => x.getAttribute('data-student-id'));
+          ids.forEach(updateRowAverage);
+        }
+        if (selectAll) {
+          const handler = function(){
+            const checked = selectAll.checked;
+            const allCbs = document.querySelectorAll('input[type="checkbox"][data-student-id]');
+            allCbs.forEach(cb => { cb.checked = checked; });
+            updateAllAverages();
+          };
+          selectAll.addEventListener('change', handler);
+          selectAll.addEventListener('click', handler);
+        }
+        // Per-day column toggles
+        const colToggles = Array.from(document.querySelectorAll('input.col-toggle'));
+        colToggles.forEach(tg => {
+          tg.addEventListener('change', function(e){
+            const idx = e.target.getAttribute('data-col-index');
+            const checks = document.querySelectorAll('input[type="checkbox"][data-col-index="' + idx + '"]');
+            const sids = new Set();
+            checks.forEach(cb => { cb.checked = e.target.checked; sids.add(cb.getAttribute('data-student-id')); });
+            sids.forEach(updateRowAverage);
+          });
+        });
+        // Per-row toggles
+        const rowToggles = Array.from(document.querySelectorAll('input.row-toggle'));
+        rowToggles.forEach(tg => {
+          tg.addEventListener('change', function(e){
+            const sid = e.target.getAttribute('data-student-id');
+            const checks = document.querySelectorAll('input[type="checkbox"][data-student-id="' + sid + '"][data-col-index]');
+            checks.forEach(cb => { cb.checked = e.target.checked; });
+            updateRowAverage(sid);
+          });
+        });
+        // Individual cell change updates its row average
+        document.addEventListener('change', function(e){
+          const t = e.target;
+          if (t && t.matches('input[type="checkbox"][data-student-id][data-col-index]') && !t.classList.contains('row-toggle') && !t.classList.contains('col-toggle')){
+            const sid = t.getAttribute('data-student-id');
+            updateRowAverage(sid);
+          }
+        });
+        form.addEventListener('submit', function(){
+          const baseYear = {{ date_val.year }}; // use selected month/year's year
+          const headerInputs = Array.from(document.querySelectorAll('#monthHeader input.col-date-dm'));
+          headerInputs.forEach((inp, idx) => {
+            let val = (inp.value || '').trim(); // expected DD-MM
+            // Basic parse DD-MM
+            let dd = '', mm = '';
+            if (val.includes('-')) {
+              const parts = val.split('-');
+              dd = parts[0].padStart(2, '0');
+              mm = parts[1].padStart(2, '0');
+            }
+            // Fallback to original month/day from placeholder if invalid
+            if (!/^\d{2}$/.test(dd) || !/^\d{2}$/.test(mm)) {
+              const ph = inp.getAttribute('data-default-dm') || '01-01';
+              const p = ph.split('-');
+              dd = (p[0]||'01').padStart(2,'0');
+              mm = (p[1]||'01').padStart(2,'0');
+            }
+            const iso = baseYear + '-' + mm + '-' + dd;
+            const checks = document.querySelectorAll('input[type="checkbox"][data-col-index="' + idx + '"]');
+            checks.forEach(cb => {
+              const sid = cb.getAttribute('data-student-id');
+              cb.setAttribute('name', 'status_' + sid + '_' + iso);
+            });
+          });
+        });
+        // Initial compute
+        updateAllAverages();
+      });
+    </script>
+  </div>
+</body>
+</html>

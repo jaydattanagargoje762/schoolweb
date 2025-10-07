@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Users</title>
+  <link rel="stylesheet" href="/static/home.css" />
+  <link rel="stylesheet" href="/static/auth.css" />
+  <style>
+    .container{max-width:1100px;margin:32px auto;padding:0 16px}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:8px 10px;border-bottom:1px solid #eee;text-align:left;font-size:14px}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+    .input, select{border:1px solid #d1d5db;border-radius:8px;padding:8px 10px}
+    .btn{background:#2563eb;color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;text-decoration:none}
+    .pager{display:flex;gap:10px;margin-top:12px}
+    .badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px}
+    .b-student{background:#e0e7ff;color:#1e3a8a}
+    .b-teacher{background:#e0f2fe;color:#075985}
+    .b-admin{background:#fee2e2;color:#991b1b}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Users</h1>
+
+    <form class="toolbar" method="get">
+      <input aria-label="Search" class="input" type="text" name="q" placeholder="Search username, name or email" value="{{ q }}" />
+      <select aria-label="Role" name="role" class="input">
+        <option value="">All roles</option>
+        <option value="student" {{ 'selected' if role=='student' else '' }}>Student</option>
+        <option value="teacher" {{ 'selected' if role=='teacher' else '' }}>Teacher</option>
+        <option value="admin" {{ 'selected' if role=='admin' else '' }}>Admin</option>
+      </select>
+      <button class="btn" type="submit">Apply</button>
+      <a class="btn" href="/admin/users/export?q={{ q }}&role={{ role }}">Export CSV</a>
+      <a class="btn" href="/admin/users/new">Create User</a>
+      <a class="btn" href="/admin/dashboard">Back</a>
+    </form>
+
+    <div>Total: {{ total }}</div>
+
+    {% if rows %}
+    <table>
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th>Username</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Class</th>
+          <th>Section</th>
+          <th>Phone</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in rows %}
+        <tr>
+          <td>
+            {% if u.role=='student' %}
+              <span class="badge b-student">Student</span>
+            {% elif u.role=='teacher' %}
+              <span class="badge b-teacher">Teacher</span>
+            {% else %}
+              <span class="badge b-admin">Admin</span>
+            {% endif %}
+          </td>
+          <td>{{ u.username }}</td>
+          <td>{{ u.name }}</td>
+          <td>{{ u.email or '' }}</td>
+          <td>{{ u.class_name or '' }}</td>
+          <td>{{ u.section or '' }}</td>
+          <td>{{ u.phone or '' }}</td>
+          <td>
+            <a class="btn" href="/admin/users/{{ u.id }}/reset-password">Reset Password</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="pager">
+      {% if page > 1 %}
+        <a class="btn" href="?page={{ page-1 }}&q={{ q }}&role={{ role }}">Prev</a>
+      {% endif %}
+      <div style="padding:8px 0;">Page {{ page }} of {{ pages }}</div>
+      {% if page < pages %}
+        <a class="btn" href="?page={{ page+1 }}&q={{ q }}&role={{ role }}">Next</a>
+      {% endif %}
+    </div>
+    {% else %}
+      <div>No users found.</div>
+    {% endif %}
+  </div>
+</body>
+</html>

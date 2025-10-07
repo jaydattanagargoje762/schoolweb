@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teacher Dashboard - Tiranga English School</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='clone.css') }}" />
+  <style>
+    body { background:#f8fafc; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    .wrap { max-width: 1100px; margin: 24px auto; padding: 0 16px; }
+    .top { display:flex; align-items:center; justify-content:space-between; margin-bottom: 16px; }
+    .title { font-weight:800; font-size: 24px; color:#0f172a; }
+    .card { background:#fff; border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,.06); padding: 18px; margin-bottom: 16px; }
+    .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 16px; }
+    label span { display:block; font-size: 13px; color:#475569; margin-bottom:6px; }
+    input, select { width:100%; padding:10px 12px; border:1px solid #e2e8f0; border-radius:10px; outline: none; font-size:14px; }
+    input:focus, select:focus { border-color:#3b82f6; box-shadow:0 0 0 4px rgba(59,130,246,.1); }
+    .btn { padding:10px 14px; border:none; border-radius: 10px; background:#3b82f6; color:#fff; font-weight:700; cursor:pointer; }
+    .btn:hover { background:#2563eb; }
+    .row { display:flex; align-items:center; gap: 8px; }
+    .muted { color:#64748b; font-size:13px; }
+    /* Safety: ensure no unintended overlay blocks clicks */
+    .safe-layer, .no-overlay, .card, .row, .top { position: relative; z-index: 2; pointer-events: auto; }
+    aside.card { z-index: 1; }
+    a, button { pointer-events: auto; }
+    .action-zone { position: relative; z-index: 5; }
+    .action-zone a, .action-zone button { position: relative; z-index: 10; }
+    /* Prevent decorative overlay from intercepting clicks on cards */
+    .card::before { pointer-events: none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top safe-layer">
+      <div>
+        <div class="title">Teacher Dashboard</div>
+        <div class="muted">Welcome, {{ teacher.name }}</div>
+      </div>
+      <div class="row">
+        <a href="/" class="btn" style="background:#0ea5e9">Home</a>
+        <a href="/teacher/profile" class="btn" style="background:#334155">My Profile</a>
+        <a href="{{ url_for('teacher_logout') }}" class="btn" style="background:#ef4444">Logout</a>
+      </div>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="card" style="background:#ecfeff; border:1px solid #67e8f9; color:#155e75;">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <!-- New layout: sidebar + main -->
+    <div style="display:grid; grid-template-columns:280px 1fr; gap:16px; align-items:start;">
+      <!-- Sidebar -->
+      <aside class="card" style="position:sticky; top:16px; z-index:1;">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+          <a href="/teacher/profile" title="View/Edit Profile" style="text-decoration:none; color:inherit; display:inline-block;">
+            <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#60a5fa,#22d3ee);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;">
+              {{ (teacher.name[:1] if teacher and teacher.name) or 'T' }}
+            </div>
+          </a>
+          <div>
+            <div style="font-weight:800; color:#0f172a;">{{ teacher.name }}</div>
+            <div class="muted">Username: {{ teacher.username }}</div>
+            <div class="muted" style="font-size:12px">Tap avatar to edit profile</div>
+          </div>
+        </div>
+        <div class="muted" style="font-size:13px; margin-bottom:10px;">Quick Actions</div>
+        <div style="display:grid; gap:8px;">
+          <button class="btn" type="button" style="text-align:center; background:#3b82f6" onclick="window.location.href={{ url_for('teacher_attendance_sheet')|tojson }}">📅 Class Attendance</button>
+          <a class="btn" style="text-align:center; background:#22c55e; display:block; text-decoration:none;" href="{{ url_for('teacher_results_upload') }}">📊 Upload Results</a>
+        </div>
+      </aside>
+
+      <!-- Main content cards -->
+      <div class="no-overlay action-zone">
+        <div class="grid safe-layer">
+      
+      <div class="card">
+        <h3 style="margin-top:0">Mark Attendance</h3>
+        <div class="muted">Choose Class and Section, then open the Attendance Sheet.</div>
+        <form method="get" action="{{ url_for('teacher_attendance_sheet') }}" style="margin-top:12px">
+          <div class="grid">
+            <label>
+              <span style="display:block;font-size:13px;color:#475569;margin-bottom:6px">Class</span>
+              <select name="class" aria-label="Select class">
+                <option value="">Select</option>
+                {% for i in range(1, 11) %}
+                  <option value="{{ i }}">Std {{ i }}</option>
+                {% endfor %}
+              </select>
+            </label>
+          </div>
+          <div style="margin-top:10px">
+            <button class="btn" type="submit" aria-label="Open Attendance Sheet">Open Attendance Sheet</button>
+          </div>
+        </form>
+      </div>
+      
+      <div class="card">
+        <h3 style="margin-top:0">Add Result</h3>
+        <div class="muted">Upload or enter results from the Results page.</div>
+        <div style="margin-top:12px">
+          <a class="btn" href="{{ url_for('teacher_results_upload') }}">Open Result Upload</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0">Record Fee Payment</h3>
+        <div class="muted">Fee recording has moved to a dedicated page/module. Contact Admin or use the Fees module.</div>
+      </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

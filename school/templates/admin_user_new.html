@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create User</title>
+  <link rel="stylesheet" href="/static/home.css" />
+  <link rel="stylesheet" href="/static/auth.css" />
+  <style>
+    .container{max-width:700px;margin:32px auto;padding:0 16px}
+    .card{background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,0.08)}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .row-1{display:grid;grid-template-columns:1fr;gap:12px}
+    label{font-size:12px;color:#374151}
+    .input, select, textarea{border:1px solid #d1d5db;border-radius:8px;padding:8px 10px;width:100%}
+    .btn{background:#2563eb;color:#fff;border:none;border-radius:8px;padding:10px 14px;cursor:pointer}
+    .toolbar{display:flex;gap:10px;margin-bottom:12px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="toolbar">
+      <a class="btn" href="/admin/dashboard">Back to Dashboard</a>
+      <a class="btn" href="/admin/audit">View Login Audit</a>
+    </div>
+
+    <div class="card">
+      <h1 style="margin-top:0;">Create User</h1>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form method="post">
+        <div class="row">
+          <div>
+            <label>Role</label>
+            <select name="role" class="input" required>
+              <option value="student">Student</option>
+              <option value="teacher">Teacher</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <div>
+            <label>Username (Roll No for students)</label>
+            <input class="input" type="text" name="username" required />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Name</label>
+            <input class="input" type="text" name="name" required />
+          </div>
+          <div>
+            <label>Email</label>
+            <input class="input" type="email" name="email" />
+          </div>
+        </div>
+
+        <div class="row-1">
+          <div>
+            <label>Password</label>
+            <input class="input" type="password" name="password" required />
+          </div>
+        </div>
+
+        <h3>Student (optional)</h3>
+        <div class="row">
+          <div>
+            <label>Admission Code</label>
+            <input class="input" type="text" name="admission_code" />
+          </div>
+          <div>
+            <label>Class</label>
+            <input class="input" type="text" name="class_name" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Section</label>
+            <input class="input" type="text" name="section" />
+          </div>
+          <div>
+            <label>Phone</label>
+            <input class="input" type="text" name="phone" />
+          </div>
+        </div>
+
+        <div class="row-1">
+          <div>
+            <label>Address</label>
+            <textarea class="input" name="address" rows="2"></textarea>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;">
+          <button class="btn" type="submit">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

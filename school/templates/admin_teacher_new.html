@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Teacher - Admin</title>
+  <link rel="stylesheet" href="/static/admin.css?v=1" />
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Add New Teacher</h1>
+      <div class="actions">
+        <a class="btn" href="/admin/teachers">Back to Teachers</a>
+      </div>
+    </div>
+
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+      <div class="alert">{{ message }}</div>
+    {% endfor %}
+
+    <form class="form" method="post" action="{{ url_for('admin_teachers_new') }}">
+      <div class="row">
+        <div>
+          <label>Username</label>
+          <input class="input" type="text" name="username" placeholder="Unique username" required />
+        </div>
+        <div>
+          <label>Name</label>
+          <input class="input" type="text" name="name" placeholder="Full name" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Email</label>
+          <input class="input" type="email" name="email" placeholder="Email (optional)" />
+        </div>
+        <div>
+          <label>Phone</label>
+          <input class="input" type="text" name="phone" placeholder="Phone (optional)" />
+        </div>
+      </div>
+
+      <div style="margin-top:12px;">
+        <button class="btn" type="submit">Create Teacher</button>
+      </div>
+    </form>
+
+    <p class="note">After create, an initial password will be generated and shown at the top as a message. Share it with the teacher and ask them to change it after first login.</p>
+  </div>
+</body>
+</html>

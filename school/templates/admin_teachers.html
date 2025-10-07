@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teachers - Admin</title>
+  <link rel="stylesheet" href="/static/admin.css?v=1" />
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Teachers</h1>
+      <div class="actions">
+        <a class="btn" href="/admin/teachers/new">Add New Teacher</a>
+        <a class="btn" href="/admin/teachers/export">Export CSV</a>
+        <a class="btn" href="/admin/dashboard">Back</a>
+      </div>
+    </div>
+
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+      <div class="alert">{{ message }}</div>
+    {% endfor %}
+
+    <form class="filter" method="get">
+      <input class="input" type="text" name="q" value="{{ q or '' }}" placeholder="Search teachers" />
+      <button class="btn" type="submit">Search</button>
+    </form>
+
+    {% if teachers %}
+    <table>
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Password</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in teachers %}
+        <tr>
+          <td>{{ t.username }}</td>
+          <td>{{ t.name }}</td>
+          <td>{{ t.email or '' }}</td>
+          <td>{{ (users.get(t.username).phone) if users.get(t.username) else '' }}</td>
+          <td>{{ t.initial_password or '' }}</td>
+          <td>
+            <a class="btn" href="/admin/teachers/{{ t.username }}/edit">Edit</a>
+            <form class="inline" method="post" action="/admin/teachers/{{ t.username }}/delete" onsubmit="return confirm('Delete this teacher? This also removes their user account.');">
+              <button class="btn btn-danger" type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="pager">
+      <span>Page {{ page }} of {{ pages }}</span>
+    </div>
+    {% else %}
+      <p>No teachers found.</p>
+    {% endif %}
+  </div>
+</body>
+</html>

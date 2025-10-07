@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Audit</title>
+  <link rel="stylesheet" href="/static/home.css" />
+  <link rel="stylesheet" href="/static/auth.css" />
+  <style>
+    .container{max-width:1100px;margin:32px auto;padding:0 16px}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:8px 10px;border-bottom:1px solid #eee;text-align:left;font-size:14px}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+    .input, select{border:1px solid #d1d5db;border-radius:8px;padding:8px 10px}
+    .btn{background:#2563eb;color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;text-decoration:none}
+    .pager{display:flex;gap:10px;margin-top:12px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Login Audit</h1>
+
+    <form class="toolbar" method="get">
+      <input class="input" type="text" name="q" placeholder="Search username" value="{{ q }}" />
+      <select name="role" class="input">
+        <option value="">All roles</option>
+        <option value="student" {{ 'selected' if role=='student' else '' }}>Student</option>
+        <option value="teacher" {{ 'selected' if role=='teacher' else '' }}>Teacher</option>
+        <option value="admin" {{ 'selected' if role=='admin' else '' }}>Admin</option>
+      </select>
+      <select name="success" class="input">
+        <option value="">All outcomes</option>
+        <option value="1" {{ 'selected' if success_param=='1' else '' }}>Success</option>
+        <option value="0" {{ 'selected' if success_param=='0' else '' }}>Failed</option>
+      </select>
+      <button class="btn" type="submit">Apply</button>
+      <a class="btn" href="/admin/dashboard">Back to Dashboard</a>
+    </form>
+
+    <div>
+      <div style="margin:8px 0;">Total: {{ total }}</div>
+      {% if logs %}
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Role</th>
+            <th>Username</th>
+            <th>Success</th>
+            <th>IP</th>
+            <th>User-Agent</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for l in logs %}
+          <tr>
+            <td>{{ l.timestamp.strftime('%Y-%m-%d %H:%M:%S') if l.timestamp else '' }}</td>
+            <td>{{ l.user_type }}</td>
+            <td>{{ l.username }}</td>
+            <td>{{ 'Yes' if l.success else 'No' }}</td>
+            <td>{{ l.ip_address or '' }}</td>
+            <td style="max-width:420px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ l.user_agent or '' }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <div class="pager">
+        {% if page > 1 %}
+          <a class="btn" href="?page={{ page-1 }}&q={{ q }}&role={{ role }}&success={{ success_param }}">Prev</a>
+        {% endif %}
+        <div style="padding:8px 0;">Page {{ page }} of {{ pages }}</div>
+        {% if page < pages %}
+          <a class="btn" href="?page={{ page+1 }}&q={{ q }}&role={{ role }}&success={{ success_param }}">Next</a>
+        {% endif %}
+      </div>
+      {% else %}
+        <div>No logs found.</div>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

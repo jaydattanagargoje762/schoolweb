@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reset Password</title>
+  <link rel="stylesheet" href="/static/home.css" />
+  <link rel="stylesheet" href="/static/auth.css" />
+  <style>
+    .container{max-width:600px;margin:32px auto;padding:0 16px}
+    .card{background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,0.08)}
+    .row-1{display:grid;grid-template-columns:1fr;gap:12px}
+    label{font-size:12px;color:#374151}
+    .input{border:1px solid #d1d5db;border-radius:8px;padding:8px 10px;width:100%}
+    .btn{background:#2563eb;color:#fff;border:none;border-radius:8px;padding:10px 14px;cursor:pointer}
+    .toolbar{display:flex;gap:10px;margin-bottom:12px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="toolbar">
+      <a class="btn" href="/admin/users">Back to Users</a>
+      <a class="btn" href="/admin/dashboard">Dashboard</a>
+    </div>
+
+    <div class="card">
+      <h1 style="margin-top:0;">Reset Password</h1>
+      <div style="margin-bottom:12px;">User: <strong>{{ user.username }}</strong> ({{ user.role }}) — {{ user.name }}</div>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form method="post">
+        <div class="row-1">
+          <div>
+            <label>New Password</label>
+            <input class="input" type="password" name="new_password" required />
+          </div>
+          <div>
+            <label>Confirm Password</label>
+            <input class="input" type="password" name="confirm_password" required />
+          </div>
+        </div>
+
+        <div style="margin-top:12px;">
+          <button class="btn" type="submit">Update Password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

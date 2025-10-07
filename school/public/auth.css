@@ -1,0 +1,44 @@
+/* Auth (Login) Stylesheet - modern, accessible, and robust against overlays */
+:root{
+  --bg:#f6faff; --card:#ffffff; --text:#0f172a; --muted:#475569;
+  --primary:#2563eb; --ring:rgba(37,99,235,.15); --danger:#ef4444;
+}
+
+/* Scope all rules to auth pages only */
+body.auth-page{font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background: var(--bg); margin:0}
+body.auth-page *{box-sizing:border-box}
+
+/* Safety: ensure no site overlays block clicks on login pages */
+body.auth-page .modal,
+body.auth-page .modal-backdrop,
+body.auth-page .header-particles,
+body.auth-page .scroll-progress{display:none !important}
+
+/* Layout */
+.auth-wrap{min-height:100vh; display:grid; place-items:center; padding:24px}
+.auth-card{background:var(--card); border-radius:16px; padding:32px; width:min(440px, 94vw); box-shadow:0 14px 40px rgba(2,6,23,.12); position:relative; z-index: 10000}
+.brand{display:flex; align-items:center; gap:12px; margin-bottom:10px}
+.brand-logo{width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg,#60a5fa,#22d3ee); color:#fff; display:grid; place-items:center; font-weight:800}
+.brand-title{font-weight:800; color:var(--text)}
+.brand-sub{font-size:12px; color:#64748b}
+
+/* Form */
+.auth-form{display:grid; gap:14px; margin-top:6px}
+.label{display:block; font-size:14px; color:#475569; margin-bottom:6px}
+.input{width:100%; padding:12px 14px; border:1px solid #e2e8f0; border-radius:10px; outline:none; font-size:15px; background:#fff; position:relative; z-index: 10001}
+.input:focus{border-color:var(--primary); box-shadow:0 0 0 4px var(--ring)}
+.btn{height:44px; display:inline-flex; align-items:center; justify-content:center; padding:0 16px; border:none; border-radius:10px; font-weight:700; cursor:pointer; background:var(--primary); color:#fff; box-shadow:0 10px 22px rgba(37,99,235,.25)}
+.btn:hover{background:#1d4ed8}
+
+/* Alerts */
+.alert{background:#fee2e2; color:#991b1b; padding:10px 12px; border-radius:10px; font-size:14px; margin:8px 0}
+
+/* Footer text */
+.note{margin-top:12px; text-align:center; color:#94a3b8; font-size:12px}
+.link{color:#2563eb; text-decoration:none}
+
+/* Make sure elements are interactable */
+body.auth-page, body.auth-page *{pointer-events:auto}
+
+/* Responsive */
+@media (max-width:420px){ .auth-card{padding:22px} }

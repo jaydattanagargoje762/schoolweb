@@ -1,0 +1,17 @@
+/* Home page dedicated stylesheet. It builds on clone.css but can override styles safely
+   without affecting login/other pages. */
+@import url('/static/clone.css?v=2');
+
+/* Ensure main content is visible even if JS animations don't run */
+[data-reveal] { opacity: 1 !important; transform: none !important; }
+
+/* Keep homepage buttons above subtle visuals, but DO NOT disable modal interactivity */
+.header-particles { pointer-events: none; }
+.cards-3 .card .btn { position: relative; z-index: 2; }
+
+/* Make sure the admissions modal content scrolls nicely */
+.modal-content { max-height: 70vh; overflow-y: auto; }
+
+/* You can customize homepage-only colors/spacing below */
+.site-header { -webkit-backdrop-filter: saturate(180%) blur(16px); backdrop-filter: saturate(180%) blur(16px); }
+.hero { padding-top: 84px; }

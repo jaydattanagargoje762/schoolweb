@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Teacher - Admin</title>
+  <link rel="stylesheet" href="/static/admin.css?v=1" />
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Edit Teacher</h1>
+      <div class="actions">
+        <a class="btn" href="/admin/teachers">Back to Teachers</a>
+        <form class="inline" method="post" action="/admin/teachers/{{ teacher.username }}/delete" onsubmit="return confirm('Delete this teacher? This also removes their user account.');">
+          <button class="btn btn-danger" type="submit">Delete</button>
+        </form>
+      </div>
+    </div>
+
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+      <div class="alert">{{ message }}</div>
+    {% endfor %}
+
+    <form class="form" method="post" action="{{ url_for('admin_teachers_edit', username=teacher.username) }}">
+      <div class="row">
+        <div>
+          <label>Username</label>
+          <input class="input" type="text" value="{{ teacher.username }}" disabled />
+        </div>
+        <div>
+          <label>Name</label>
+          <input class="input" type="text" name="name" value="{{ teacher.name }}" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Email</label>
+          <input class="input" type="email" name="email" value="{{ teacher.email or '' }}" />
+        </div>
+        <div>
+          <label>Phone</label>
+          <input class="input" type="text" name="phone" value="{{ user.phone if user else '' }}" />
+        </div>
+      </div>
+
+      <div style="margin-top:12px;">
+        <button class="btn" type="submit">Save Changes</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

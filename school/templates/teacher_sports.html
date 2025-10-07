@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sports Achievements - Teacher</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='clone.css') }}" />
+  <style>
+    body { background:#f8fafc; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    .wrap { max-width: 1100px; margin: 24px auto; padding: 0 16px; }
+    .header { display:flex; align-items:center; justify-content:space-between; margin-bottom: 16px; }
+    .title { font-weight:800; font-size: 22px; }
+    .card { background:#fff; border-radius:14px; box-shadow: 0 8px 24px rgba(0,0,0,.06); padding: 16px; }
+    .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 12px; }
+    .btn { padding:10px 14px; border:none; border-radius:10px; background:#f59e0b; color:#fff; font-weight:700; cursor:pointer; }
+    .btn.secondary { background:#3b82f6; }
+    table { width:100%; border-collapse: collapse; }
+    th, td { padding:10px 12px; border-bottom:1px solid #e5e7eb; text-align:left; font-size:14px; }
+    .filter { display:flex; gap:8px; align-items:end; margin-bottom:12px; flex-wrap:wrap; }
+    .input, select, input[type=date], input[type=text] { width:100%; padding:10px 12px; border:1px solid #e2e8f0; border-radius:10px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div class="title">🏅 Sports Achievements</div>
+      <div>
+        <a href="{{ url_for('teacher_dashboard') }}" class="btn secondary" style="background:#64748b">Back</a>
+        <a href="{{ url_for('teacher_logout') }}" class="btn" style="background:#ef4444">Logout</a>
+      </div>
+    </div>
+
+    <form class="card" method="get" action="{{ url_for('teacher_sports_page') }}">
+      <div class="grid">
+        <label>
+          <span style="display:block;font-size:13px;color:#475569;margin-bottom:6px">Class</span>
+          <select name="class">
+            <option value="">All</option>
+            {% for c in class_list %}
+              <option value="{{ c }}" {% if selected_class==c %}selected{% endif %}>{{ c }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <label>
+          <span style="display:block;font-size:13px;color:#475569;margin-bottom:6px">Section</span>
+          <select name="section">
+            <option value="">All</option>
+            {% for s in section_list %}
+              <option value="{{ s }}" {% if selected_section==s %}selected{% endif %}>{{ s }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <button class="btn secondary" type="submit">Load</button>
+      </div>
+    </form>
+
+    <form class="card" method="post" action="{{ url_for('teacher_sports_bulk') }}">
+      <input type="hidden" name="class_name" value="{{ selected_class or '' }}" />
+      <input type="hidden" name="section" value="{{ selected_section or '' }}" />
+      <div class="grid">
+        <label>
+          <span style="display:block;font-size:13px;color:#475569;margin-bottom:6px">Activity</span>
+          <input type="text" name="activity" placeholder="e.g., Football" required />
+        </label>
+        <label>
+          <span style="display:block;font-size:13px;color:#475569;margin-bottom:6px">Level</span>
+          <select name="level">
+            <option value="">--</option>
+            <option>School</option>
+            <option>Zonal</option>
+            <option>District</option>
+            <option>State</option>
+            <option>National</option>
+          </select>
+        </label>
+        <label>
+          <span style="display:block;font-size:13px;color:#475569;margin-bottom:6px">Result</span>
+          <select name="result">
+            <option value="">Participated</option>
+            <option>1st</option>
+            <option>2nd</option>
+            <option>3rd</option>
+          </select>
+        </label>
+        <label>
+          <span style="display:block;font-size:13px;color:#475569;margin-bottom:6px">Date</span>
+          <input type="date" name="date" />
+        </label>
+        <label>
+          <span style="display:block;font-size:13px;color:#475569;margin-bottom:6px">Notes</span>
+          <input type="text" name="notes" placeholder="Optional notes" />
+        </label>
+      </div>
+
+      <div style="overflow:auto; margin-top:12px">
+        <table>
+          <thead>
+            <tr>
+              <th>Roll No</th>
+              <th>Name</th>
+              <th>Add</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for s in students %}
+            <tr>
+              <td>{{ s.roll_no }}<input type="hidden" name="student_id" value="{{ s.id }}" /></td>
+              <td>{{ s.name }}</td>
+              <td>
+                <input type="checkbox" name="selected_{{ s.id }}" checked disabled />
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:12px"><button class="btn" type="submit">Save Achievements</button></div>
+    </form>
+  </div>
+</body>
+</html>

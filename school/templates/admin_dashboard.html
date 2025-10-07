@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/static/home.css" />
+  <link rel="stylesheet" href="/static/auth.css" />
+  <style>
+    .container{max-width:1000px;margin:32px auto;padding:0 16px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+    .card{background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,0.08)}
+    .card h3{margin:0 0 8px 0}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:8px 10px;border-bottom:1px solid #eee;text-align:left;font-size:14px}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+    .btn{background:#2563eb;color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;text-decoration:none;display:inline-block}
+    .btn.secondary{background:#0ea5e9}
+    .btn.gray{background:#6b7280}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Admin Dashboard</h1>
+
+    <div class="toolbar">
+      <a class="btn" href="/admin/audit">View Login Audit</a>
+      <a class="btn" href="/admin/users">Users</a>
+      <a class="btn secondary" href="/admin/users/new">Create User</a>
+      <a class="btn secondary" href="/admin/admissions">Admissions</a>
+      <a class="btn gray" href="/admin/admissions/new">New Admission</a>
+      <a class="btn gray" href="/admin/students">Students</a>
+      <a class="btn gray" href="/admin/teachers">Teachers</a>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Total Students</h3>
+        <div style="font-size:28px;font-weight:700;">{{ student_count }}</div>
+      </div>
+      <div class="card">
+        <h3>Total Teachers</h3>
+        <div style="font-size:28px;font-weight:700;">{{ teacher_count }}</div>
+      </div>
+      <div class="card">
+        <h3>Total Users (Unified)</h3>
+        <div style="font-size:28px;font-weight:700;">{{ users_count }}</div>
+      </div>
+      <div class="card">
+        <h3>Admissions Confirmed</h3>
+        <div style="font-size:28px;font-weight:700;">{{ admissions_count }}</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <h3>Recent Logins</h3>
+      {% if last_logins %}
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Role</th>
+            <th>Username</th>
+            <th>Success</th>
+            <th>IP</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for log in last_logins %}
+          <tr>
+            <td>{{ log.timestamp.strftime('%Y-%m-%d %H:%M:%S') if log.timestamp else '' }}</td>
+            <td>{{ log.user_type }}</td>
+            <td>{{ log.username }}</td>
+            <td>{{ 'Yes' if log.success else 'No' }}</td>
+            <td>{{ log.ip_address or '' }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+        <div>No login attempts yet.</div>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

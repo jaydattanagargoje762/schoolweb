@@ -1,0 +1,928 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TIRANGA English School</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/home.css?v=1" />
+  </head>
+  <body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <div class="brand-logo-container">
+            <img class="brand-logo" src="/static/logo.png" alt="Tiranga English School logo" width="50" height="50" />
+            <div class="logo-glow"></div>
+          </div>
+          <div class="brand-text">
+            <span class="brand-primary">TES</span>
+            <div class="brand-sub">Panchwad
+              
+            </div>
+            <div class="brand-tagline">Excellence in Education</div>
+          </div>
+        </div>
+     <nav class="nav">
+  <!-- Main Links -->
+  <a href="#programs" class="nav-link">
+    <span class="nav-icon">📚</span>
+    <span class="nav-text">Programs</span>
+  </a>
+  <a href="#facilities" class="nav-link">
+    <span class="nav-icon">🏫</span>
+    <span class="nav-text">Facilities</span>
+  </a>
+  <a href="#contact" class="nav-link">
+    <span class="nav-icon">📞</span>
+    <span class="nav-text">Contact</span>
+  </a>
+
+  <!-- Info Dropdown -->
+  <div class="dropdown">
+    <a href="#" class="dropbtn">
+      Info ▾
+    </a>
+    <div class="dropdown-content">
+      <a href="events.html">Events & Gallery</a>
+      <a href="news.html">News & Announcements</a>
+      <a href="faculty.html">Faculty</a>
+      <a href="alumni.html">Alumni</a>
+    </div>
+  </div>
+
+  <!-- Admissions Button -->
+  <a href="#" class="btn btn-accent btn-pulse" id="openAdmissionsHeader">
+    <span class="btn-icon">✨</span>
+    <span>Admissions</span>
+  </a>
+
+  <!-- Admin Login -->
+  <a href="/admin/login" class="btn btn-secondary" title="Admin Login" style="margin-left:8px;">
+    <span class="btn-icon">🔐</span>
+    <span>Admin Login</span>
+  </a>
+
+  <!-- Google Translate -->
+  <div id="google_translate_element"></div>
+</nav>
+
+        <button class="mobile-menu-toggle" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <div class="header-bar" aria-hidden="true"></div>
+      <div class="header-particles" aria-hidden="true"></div>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <section class="hero" data-reveal>
+        <div class="container hero-grid">
+          <div class="hero-copy" data-reveal>
+            <h1>TIRANGA ENGLISH SCHOOL</h1>
+            <div class="chip">Welcome to Excellence in Education</div>
+           <div class="badge">📍 PANCHWAD</div>
+            <p class="lead">Empowering <span class="hl">minds</span> with knowledge,<span class="hl"> nurturing hearts</span> with discipline, and <span class="hl">building futures</span> with values</p>
+            <div class="actions">
+              <a href="#programs" class="btn btn-primary">Learn More</a>
+              <button class="btn btn-outline" id="openContactModal">Contact Us</button>
+            </div>
+          </div>
+          <div class="hero-art" data-reveal>
+            <div class="hero-image-container">
+              <img src="/static/image.png" 
+                   alt="Modern school building with students" 
+                   class="hero-image" />
+              <div class="hero-image-overlay"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Portals -->
+      <section class="portals" data-reveal>
+        <div class="container cards-3">
+          <article class="card" data-reveal>
+            <div class="icon">🎓</div>
+            <h3>Student Portal</h3>
+            <p>Access your personalized dashboard, track attendance, view academic results, and monitor your learning progress in real-time.</p>
+            <a href="/student/login" class="btn btn-secondary" style="cursor: pointer; position: relative; z-index: 999;">Access Portal →</a>
+          </article>
+          <article class="card" data-reveal>
+            <div class="icon">👩‍🏫</div>
+            <h3>Teacher Portal</h3>
+            <p>Manage your classes, update student attendance, share resources, and maintain seamless communication.</p>
+            <a href="/teacher/login" class="btn btn-secondary">Access Portal →</a>
+          </article>
+          <article class="card" data-reveal>
+            <div class="icon">📝</div>
+            <h3>Admissions</h3>
+            <p>Discover our admission process, download application forms, and connect with our admissions team.</p>
+            <button class="btn btn-accent" id="openAdmissionsCard" type="button" onclick="openAdmissionsModal()" style="position: relative; z-index: 999; cursor: pointer;">Apply Now →</button>
+          </article>
+        </div>
+      </section>
+
+      <!-- Excellence -->
+      <section id="programs" class="excellence section-padded" data-reveal>
+        <div class="container">
+          <div class="section-header">
+            <div class="chip">Academic Excellence</div>
+            <h2>Excellence in Education</h2>
+            <p>Our commitment is reflected in outstanding results, innovative teaching, and comprehensive student support systems.</p>
+          </div>
+
+          <h3 class="subhead">Academic Programs</h3>
+          <div class="programs-grid">
+            <div class="program" data-reveal><span class="tag">Pre-Primary</span><p>Foundation years focusing on cognitive and social skills.</p></div>
+            <div class="program" data-reveal><span class="tag">Primary (1-5)</span><p>Core subjects with emphasis on reading, writing, and arithmetic.</p></div>
+            <div class="program" data-reveal><span class="tag">Middle (6-8)</span><p>Expanded curriculum with sciences, social studies, and languages.</p></div>
+            <div class="program" data-reveal><span class="tag">Secondary (9-10)</span><p>Broad program with comprehensive subject coverage.</p></div>
+            <div class="program" data-reveal><span class="tag">Senior (11-12)</span><p>Specialized streams in Science, Commerce, and Arts.</p></div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat" data-reveal><div class="num" data-count="500">0</div><div class="label">Active Students</div></div>
+            <div class="stat" data-reveal><div class="num" data-count="25">0</div><div class="label">Years of Excellence</div></div>
+            <div class="stat" data-reveal><div class="num" data-count="95" data-suffix="%">0</div><div class="label">Board Pass Rate</div></div>
+            <div class="stat" data-reveal><div class="num" data-count="50">0</div><div class="label">Expert Faculty</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Facilities -->
+      <section id="facilities" class="section-padded" data-reveal>
+        <div class="container">
+          <div class="section-header">
+            <div class="chip">World-class Facilities</div>
+            <h2>Modern Infrastructure</h2>
+            <p>State-of-the-art facilities designed for the best learning environment and growth.</p>
+          </div>
+
+          <div class="features-grid">
+            <div class="feature" data-reveal><span class="fi">🧠</span><h4>Smart Classrooms</h4><p>Technology-enabled spaces with interactive boards.</p></div>
+            <div class="feature" data-reveal><span class="fi">⚗️</span><h4>Science Laboratories</h4><p>Well-equipped labs for hands-on learning.</p></div>
+            <div class="feature" data-reveal><span class="fi">📚</span><h4>Digital Library</h4><p>Books, e-resources, and quiet study areas.</p></div>
+            <div class="feature" data-reveal><span class="fi">🏟️</span><h4>Sports Complex</h4><p>Multi-purpose facilities for games and activities.</p></div>
+            <div class="feature" data-reveal><span class="fi">🎨</span><h4>Art & Music Rooms</h4><p>Spaces for creative expression and development.</p></div>
+            <div class="feature" data-reveal><span class="fi">🍽️</span><h4>Cafeteria</h4><p>Healthy and hygienic meals prepared daily.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-padded alt" data-reveal>
+        <div class="container">
+          <div class="section-header">
+            <div class="chip">Why Choose Tiranga</div>
+            <h2>Excellence in Every Aspect</h2>
+            <p>We provide a comprehensive educational experience nurturing excellence and personal growth.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="footer-wave" aria-hidden="true">
+      <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,60 C240,120 480,0 720,60 C960,120 1200,0 1440,60 L1440,90 L0,90 Z" fill="url(#g)" opacity="0.6"></path><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0%" stop-color="#60a5fa"/><stop offset="50%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#f59e0b"/></linearGradient></defs></svg>
+    </div>
+    <footer id="contact" class="site-footer">
+      <div class="footer-top">
+        <div class="container footer-grid">
+          <div class="footer-brand">
+            <div class="footer-logo">
+              <div class="brand-logo-container">
+                <img class="brand-logo" src="./logo.png" alt="Tiranga English School logo" width="50" height="50" />
+                <div class="logo-glow"></div>
+              </div>
+              <div class="brand-text">
+                <span class="brand-primary">TES</span>
+                <div class="brand-sub">Panchwad</div>
+                <div class="brand-tagline">Excellence in Education</div>
+              </div>
+            </div>
+            <p class="footer-description">Empowering minds and building futures with values. We are committed to providing quality education that shapes tomorrow's leaders.</p>
+            <div class="contact-info">
+              <div class="contact-item">
+                <div class="contact-icon">📍</div>
+                <div class="contact-details">
+                  <strong>Address</strong>
+                  <span>Panchwad, Maharashtra, India</span>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-icon">✉️</div>
+                <div class="contact-details">
+                  <strong>Email</strong>
+                  <span>info@tiranga.school</span>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-icon">☎️</div>
+                <div class="contact-details">
+                  <strong>Phone</strong>
+                  <span>+91 00000 00000</span>
+                </div>
+              </div>
+            </div>
+            <div class="social">
+              <a href="#" class="social-link" aria-label="Facebook">
+                <span class="social-icon">👍</span>
+                <span class="social-text">Facebook</span>
+              </a>
+              <a href="#" class="social-link" aria-label="Instagram">
+                <span class="social-icon">📸</span>
+                <span class="social-text">Instagram</span>
+              </a>
+              <a href="#" class="social-link" aria-label="Twitter">
+                <span class="social-icon">🐦</span>
+                <span class="social-text">Twitter</span>
+              </a>
+              <a href="#" class="social-link" aria-label="YouTube">
+                <span class="social-icon">▶️</span>
+                <span class="social-text">YouTube</span>
+              </a>
+            </div>
+          </div>
+          
+          <div class="footer-section">
+            <h3 class="footer-title">Quick Links</h3>
+            <nav class="footer-links">
+              <a href="#programs" class="footer-link">
+                <span class="link-icon">📚</span>
+                <span>Academic Programs</span>
+              </a>
+              <a href="#facilities" class="footer-link">
+                <span class="link-icon">🏫</span>
+                <span>Facilities</span>
+              </a>
+              <button class="footer-link" id="openContactModalFooter">
+                <span class="link-icon">📞</span>
+                <span>Contact Us</span>
+              </button>
+              <a href="#" class="footer-link">
+                <span class="link-icon">📝</span>
+                <span>Admissions</span>
+              </a>
+              <a href="#" class="footer-link">
+                <span class="link-icon">📊</span>
+                <span>Results</span>
+              </a>
+              <a href="#" class="footer-link">
+                <span class="link-icon">📰</span>
+                <span>News & Events</span>
+              </a>
+            </nav>
+          </div>
+          
+          <div class="footer-section">
+            <h3 class="footer-title">Stay Connected</h3>
+            <form class="newsletter" onsubmit="return false;">
+              <p class="newsletter-text">Get the latest updates about admissions, results, and school events delivered to your inbox.</p>
+              <div class="newsletter-row">
+                <input type="email" id="newsletterEmail" placeholder="Enter your email address" required />
+                <button class="btn btn-primary btn-subscribe" type="submit">
+                  <span class="btn-icon">📧</span>
+                  <span>Subscribe</span>
+                </button>
+              </div>
+              <small class="newsletter-note">We respect your privacy. Unsubscribe at any time.</small>
+            </form>
+            
+            <div class="footer-achievements">
+              <div class="achievement">
+                <div class="achievement-number">25+</div>
+                <div class="achievement-text">Years of Excellence</div>
+              </div>
+              <div class="achievement">
+                <div class="achievement-number">500+</div>
+                <div class="achievement-text">Happy Students</div>
+              </div>
+              <div class="achievement">
+                <div class="achievement-number">95%</div>
+                <div class="achievement-text">Success Rate</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <div class="container footer-bottom-inner">
+          <div class="footer-bottom-left">
+            <span>  Tiranga English School. All rights reserved.</span>
+            <div class="footer-bottom-links">
+              <a href="#" class="footer-bottom-link">Privacy Policy</a>
+              <a href="#" class="footer-bottom-link">Terms of Service</a>
+              <a href="#" class="footer-bottom-link">Accessibility</a>
+            </div>
+          </div>
+          <div class="footer-bottom-right">
+            <span class="footer-bottom-text">Made with  for Education</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <button id="toTop" class="to-top" aria-label="Back to top">↑</button>
+
+    <!-- Admissions Modal -->
+    <div class="modal" id="admissionsModal" aria-hidden="true" role="dialog" aria-labelledby="admissionsTitle">
+      <div class="modal-backdrop" data-close-modal></div>
+      <div class="modal-dialog admissions-modal" role="document">
+        <button class="modal-close" id="closeAdmissions" aria-label="Close">×</button>
+        
+        <!-- Step 0: Process Overview -->
+        <div class="admissions-step" id="stepOverview">
+          <header class="modal-header">
+            <div class="chip">Admissions 2025</div>
+            <h2 id="admissionsTitle">Admission Process</h2>
+            <p class="modal-sub">Follow these simple steps to apply to Tiranga English School</p>
+          </header>
+          <div class="modal-content">
+            <div class="process-steps">
+              <div class="process-step">
+                <div class="step-icon">📝</div>
+                <h3>1. Student Details</h3>
+                <p>Fill in student and parent information</p>
+              </div>
+              <div class="process-step">
+                <div class="step-icon">📄</div>
+                <h3>2. Documents</h3>
+                <p>Upload required documents</p>
+              </div>
+              <div class="process-step">
+                <div class="step-icon">💰</div>
+                <h3>3. Fee Structure</h3>
+                <p>Review and understand fee details</p>
+              </div>
+              <div class="process-step">
+                <div class="step-icon">✅</div>
+                <h3>4. Confirmation</h3>
+                <p>Get your unique admission code</p>
+              </div>
+            </div>
+            <div class="start-process">
+              <button class="btn btn-primary btn-large" id="startAdmissionProcess">
+                <span class="btn-icon">🚀</span>
+                Start Admission Process
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 1: Student Details Form -->
+        <div class="admissions-step" id="stepDetails" style="display: none;">
+          <header class="modal-header">
+            <div class="progress-tracker">
+              <div class="progress-step active">1</div>
+              <div class="progress-line"></div>
+              <div class="progress-step">2</div>
+              <div class="progress-line"></div>
+              <div class="progress-step">3</div>
+              <div class="progress-line"></div>
+              <div class="progress-step">4</div>
+            </div>
+            <h2>Student Details</h2>
+            <p class="modal-sub">Please provide accurate information about the student and parents</p>
+          </header>
+          <div class="modal-content">
+            <form id="studentDetailsForm" class="admission-form">
+              <div class="form-section">
+                <h3>Student Information</h3>
+                <div class="form-grid">
+                  <label>
+                    <span>Full Name *</span>
+                    <input type="text" name="studentName" placeholder="Enter student's full name" required />
+                  </label>
+                  <label>
+                    <span>Date of Birth *</span>
+                    <input type="date" name="dob" required />
+                  </label>
+                  <label>
+                    <span>Class Applying For *</span>
+                    <select name="class" required>
+                      <option value="">Select class</option>
+                      <option value="Nursery">Nursery</option>
+                      <option value="KG">KG</option>
+                      <option value="1">Class 1</option>
+                      <option value="2">Class 2</option>
+                      <option value="3">Class 3</option>
+                      <option value="4">Class 4</option>
+                      <option value="5">Class 5</option>
+                      <option value="6">Class 6</option>
+                      <option value="7">Class 7</option>
+                      <option value="8">Class 8</option>
+                      <option value="9">Class 9</option>
+                      <option value="10">Class 10</option>
+                      <option value="11">Class 11</option>
+                      <option value="12">Class 12</option>
+                    </select>
+                  </label>
+                  <label>
+                    <span>Gender *</span>
+                    <select name="gender" required>
+                      <option value="">Select gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h3>Parent/Guardian Information</h3>
+                <div class="form-grid">
+                  <label>
+                    <span>Father's Name *</span>
+                    <input type="text" name="fatherName" placeholder="Enter father's name" required />
+                  </label>
+                  <label>
+                    <span>Mother's Name *</span>
+                    <input type="text" name="motherName" placeholder="Enter mother's name" required />
+                  </label>
+                  <label>
+                    <span>Father's Phone *</span>
+                    <input type="tel" name="fatherPhone" placeholder="10-digit mobile" pattern="[0-9]{10}" required />
+                  </label>
+                  <label>
+                    <span>Mother's Phone</span>
+                    <input type="tel" name="motherPhone" placeholder="10-digit mobile" pattern="[0-9]{10}" />
+                  </label>
+                  <label>
+                    <span>Email Address *</span>
+                    <input type="email" name="email" placeholder="name@example.com" required />
+                  </label>
+                  <label>
+                    <span>Occupation</span>
+                    <input type="text" name="occupation" placeholder="Parent's occupation" />
+                  </label>
+                </div>
+                <label class="full">
+                  <span>Address *</span>
+                  <textarea name="address" rows="3" placeholder="Complete residential address" required></textarea>
+                </label>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn btn-outline" id="backToOverview">Back</button>
+                <button type="submit" class="btn btn-primary">Next: Documents</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Step 2: Documents -->
+        <div class="admissions-step" id="stepDocuments" style="display: none;">
+          <header class="modal-header">
+            <div class="progress-tracker">
+              <div class="progress-step completed">1</div>
+              <div class="progress-line completed"></div>
+              <div class="progress-step active">2</div>
+              <div class="progress-line"></div>
+              <div class="progress-step">3</div>
+              <div class="progress-line"></div>
+              <div class="progress-step">4</div>
+            </div>
+            <h2>Required Documents</h2>
+            <p class="modal-sub">Upload the following documents for verification</p>
+          </header>
+          <div class="modal-content">
+            <div class="documents-list">
+              <div class="document-item">
+                <div class="doc-icon">📄</div>
+                <div class="doc-info">
+                  <h4>Birth Certificate</h4>
+                  <p>Original or certified copy</p>
+                </div>
+                <div class="doc-upload">
+                  <input type="file" id="birthCert" accept=".pdf,.jpg,.jpeg,.png" />
+                  <label for="birthCert" class="btn btn-secondary">Upload</label>
+                </div>
+              </div>
+              <div class="document-item">
+                <div class="doc-icon">📊</div>
+                <div class="doc-info">
+                  <h4>Previous Report Card</h4>
+                  <p>Latest academic year report card</p>
+                </div>
+                <div class="doc-upload">
+                  <input type="file" id="reportCard" accept=".pdf,.jpg,.jpeg,.png" />
+                  <label for="reportCard" class="btn btn-secondary">Upload</label>
+                </div>
+              </div>
+              <div class="document-item">
+                <div class="doc-icon">🆔</div>
+                <div class="doc-info">
+                  <h4>Aadhar Card</h4>
+                  <p>Student's Aadhar card copy</p>
+                </div>
+                <div class="doc-upload">
+                  <input type="file" id="aadhar" accept=".pdf,.jpg,.jpeg,.png" />
+                  <label for="aadhar" class="btn btn-secondary">Upload</label>
+                </div>
+              </div>
+              <div class="document-item">
+                <div class="doc-icon">📸</div>
+                <div class="doc-info">
+                  <h4>Passport Photos</h4>
+                  <p>2 recent passport size photos</p>
+                </div>
+                <div class="doc-upload">
+                  <input type="file" id="photos" accept=".jpg,.jpeg,.png" multiple />
+                  <label for="photos" class="btn btn-secondary">Upload</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn btn-outline" id="backToDetails">Back</button>
+              <button type="button" class="btn btn-primary" id="nextToFees">Next: Fee Structure</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Fee Structure -->
+        <div class="admissions-step" id="stepFees" style="display: none;">
+          <header class="modal-header">
+            <div class="progress-tracker">
+              <div class="progress-step completed">1</div>
+              <div class="progress-line completed"></div>
+              <div class="progress-step completed">2</div>
+              <div class="progress-line completed"></div>
+              <div class="progress-step active">3</div>
+              <div class="progress-line"></div>
+              <div class="progress-step">4</div>
+              <div class="progress-line"></div>
+              <div class="progress-step">5</div>
+            </div>
+            <h2>Fee Structure</h2>
+            <p class="modal-sub">Review the fee structure for the selected class</p>
+          </header>
+          <div class="modal-content">
+            <div class="fee-structure">
+              <div class="fee-card">
+                <h3>Annual Fee Structure</h3>
+                <div class="fee-details">
+                  <div class="fee-item">
+                    <span>Tuition Fee</span>
+                    <span class="fee-amount">₹25,000</span>
+                  </div>
+                  <div class="fee-item">
+                    <span>Development Fee</span>
+                    <span class="fee-amount">₹5,000</span>
+                  </div>
+                  <div class="fee-item">
+                    <span>Library Fee</span>
+                    <span class="fee-amount">₹2,000</span>
+                  </div>
+                  <div class="fee-item">
+                    <span>Sports Fee</span>
+                    <span class="fee-amount">₹1,500</span>
+                  </div>
+                  <div class="fee-item total">
+                    <span>Total Annual Fee</span>
+                    <span class="fee-amount">₹33,500</span>
+                  </div>
+                </div>
+                <div class="fee-note">
+                  <p>💡 <strong>Note:</strong> Fees can be paid in quarterly installments. Additional charges may apply for transport and meals.</p>
+                </div>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn btn-outline" id="backToDocuments">Back</button>
+              <button type="button" class="btn btn-primary" id="nextToPayment">Next: Payment</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Payment -->
+        <div class="admissions-step" id="stepPayment" style="display: none;">
+          <header class="modal-header">
+            <div class="progress-tracker">
+              <div class="progress-step completed">1</div>
+              <div class="progress-line completed"></div>
+              <div class="progress-step completed">2</div>
+              <div class="progress-line completed"></div>
+              <div class="progress-step completed">3</div>
+              <div class="progress-line completed"></div>
+              <div class="progress-step active">4</div>
+              <div class="progress-line"></div>
+              <div class="progress-step">5</div>
+            </div>
+            <h2>Payment</h2>
+            <p class="modal-sub">Complete payment to proceed with admission</p>
+          </header>
+          <div class="modal-content">
+            <div class="payment-section">
+              <div class="payment-summary">
+                <h3>Payment Summary</h3>
+                <div class="payment-details">
+                  <div class="payment-item">
+                    <span>Admission Fee</span>
+                    <span class="payment-amount">₹5,000</span>
+                  </div>
+                  <div class="payment-item">
+                    <span>First Quarter Tuition</span>
+                    <span class="payment-amount">₹8,375</span>
+                  </div>
+                  <div class="payment-item total">
+                    <span>Total Amount</span>
+                    <span class="payment-amount">₹13,375</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="payment-methods">
+                <h3>Choose Payment Method</h3>
+                <div class="payment-options">
+                  <label class="payment-option">
+                    <input type="radio" name="paymentMethod" value="online" required />
+                    <div class="payment-card">
+                      <div class="payment-icon">💳</div>
+                      <div class="payment-info">
+                        <h4>Online Payment</h4>
+                        <p>Credit/Debit Card, UPI, Net Banking</p>
+                      </div>
+                    </div>
+                  </label>
+                  <label class="payment-option">
+                    <input type="radio" name="paymentMethod" value="offline" required />
+                    <div class="payment-card">
+                      <div class="payment-icon">🏦</div>
+                      <div class="payment-info">
+                        <h4>Offline Payment</h4>
+                        <p>Cash/Cheque at school office</p>
+                      </div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <div class="payment-actions">
+                <button type="button" class="btn btn-outline" id="backToFees">Back</button>
+                <button type="button" class="btn btn-primary" id="proceedPayment">Proceed to Payment</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4.5: Online Payment QR Code -->
+        <div class="admissions-step" id="stepOnlinePayment" style="display: none;">
+          <header class="modal-header">
+            <div class="progress-tracker">
+              <div class="progress-step completed">1</div>
+              <div class="progress-line completed"></div>
+              <div class="progress-step completed">2</div>
+              <div class="progress-line completed"></div>
+              <div class="progress-step completed">3</div>
+              <div class="progress-line completed"></div>
+              <div class="progress-step completed">4</div>
+              <div class="progress-line completed"></div>
+              <div class="progress-step active">5</div>
+            </div>
+            <h2>Online Payment</h2>
+            <p class="modal-sub">Scan QR code to complete payment</p>
+          </header>
+          <div class="modal-content">
+            <div class="qr-payment-section">
+              <div class="payment-amount-display">
+                <h3>Amount to Pay</h3>
+                <div class="amount">₹13,375</div>
+              </div>
+              
+              <div class="qr-code-container">
+                <div class="qr-code">
+                  <div class="qr-placeholder">
+                    <div class="qr-grid">
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                      <div class="qr-square"></div>
+                    </div>
+                  </div>
+                </div>
+                <p class="qr-instruction">Scan with any UPI app to pay</p>
+              </div>
+
+              <div class="payment-status">
+                <div class="status-message">
+                  <div class="status-icon">⏳</div>
+                  <p>Waiting for payment confirmation...</p>
+                </div>
+              </div>
+
+              <div class="payment-actions">
+                <button type="button" class="btn btn-outline" id="backToPayment">Back</button>
+                <button type="button" class="btn btn-primary" id="confirmOnlinePayment">I've Paid</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5: Confirmation & Code Generation -->
+        <div class="admissions-step" id="stepConfirmation" style="display: none;">
+          <header class="modal-header">
+            <div class="progress-tracker">
+              <div class="progress-step completed">1</div>
+              <div class="progress-line completed"></div>
+              <div class="progress-step completed">2</div>
+              <div class="progress-line completed"></div>
+              <div class="progress-step completed">3</div>
+              <div class="progress-line completed"></div>
+              <div class="progress-step completed">4</div>
+              <div class="progress-line completed"></div>
+              <div class="progress-step active">5</div>
+            </div>
+            <h2>Application Complete!</h2>
+            <p class="modal-sub">Your admission application has been submitted successfully</p>
+          </header>
+          <div class="modal-content">
+            <div class="confirmation-content">
+              <div class="success-icon">✅</div>
+              <h3>Application Submitted Successfully!</h3>
+              <div class="generated-code">
+                <h4 id="codeTitle">Your Admission Code</h4>
+                <div class="code-display" id="admissionCode">TES-2025-XXXX</div>
+                <p class="code-note" id="codeNote">Save this code for future reference. You'll need it for admission confirmation.</p>
+              </div>
+              <div class="next-steps">
+                <h4>What's Next?</h4>
+                <ul id="nextStepsList">
+                  <li>Our team will review your application within 2-3 business days</li>
+                  <li>You'll receive a call for document verification</li>
+                  <li>An interaction session will be scheduled</li>
+                  <li>Final admission confirmation will be provided</li>
+                </ul>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn btn-outline" id="backToFees">Back</button>
+              <button type="button" class="btn btn-primary" id="finishProcess">Complete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div class="modal" id="contactModal" aria-hidden="true" role="dialog" aria-labelledby="contactTitle">
+      <div class="modal-backdrop" data-close-contact-modal></div>
+      <div class="modal-dialog contact-modal" role="document">
+        <button class="modal-close" id="closeContactModal" aria-label="Close">×</button>
+        
+        <header class="modal-header">
+          <div class="chip">Get in Touch</div>
+          <h2 id="contactTitle">Contact Tiranga English School</h2>
+          <p class="modal-sub">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+        </header>
+        
+        <div class="modal-content">
+          <div class="contact-content">
+            <div class="contact-info-section">
+              <h3>School Information</h3>
+              <div class="contact-cards">
+                <div class="contact-card">
+                  <div class="contact-icon">📍</div>
+                  <div class="contact-details">
+                    <h4>Address</h4>
+                    <p>Panchwad, Maharashtra<br>India - 413102</p>
+                  </div>
+                </div>
+                <div class="contact-card">
+                  <div class="contact-icon">☎️</div>
+                  <div class="contact-details">
+                    <h4>Phone</h4>
+                    <p>+91 98765 43210<br>+91 87654 32109</p>
+                  </div>
+                </div>
+                <div class="contact-card">
+                  <div class="contact-icon">✉️</div>
+                  <div class="contact-details">
+                    <h4>Email</h4>
+                    <p>info@tirangaenglishschool.edu<br>admissions@tirangaenglishschool.edu</p>
+                  </div>
+                </div>
+                <div class="contact-card">
+                  <div class="contact-icon">🕒</div>
+                  <div class="contact-details">
+                    <h4>Office Hours</h4>
+                    <p>Monday - Friday: 8:00 AM - 5:00 PM<br>Saturday: 9:00 AM - 1:00 PM</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            
+            <div class="contact-form-section">
+               <!-- 📍 Google Map Section -->
+  <div class="contact-map-section">
+    <h3>Find Us on Map</h3>
+    <div class="map-container">
+     <iframe 
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3797.5371437360295!2d73.94657727463729!3d17.860319989009913!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc244103f651335%3A0x8680f18c1247d552!2sTiranga%20English%20Medium%20School!5e0!3m2!1sen!2sin!4v1758186674324!5m2!1sen!2sin" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" 
+  width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+</iframe>
+
+    </div>
+  </div>
+              <h3>Send us a Message</h3>
+              <form id="contactForm" class="contact-form">
+                <div class="form-row">
+                  <label>
+                    <span>Full Name *</span>
+                    <input type="text" name="name" placeholder="Enter your full name" required />
+                  </label>
+                  <label>
+                    <span>Email Address *</span>
+                    <input type="email" name="email" placeholder="Enter your email" required />
+                  </label>
+                </div>
+                <div class="form-row">
+                  <label>
+                    <span>Phone Number</span>
+                    <input type="tel" name="phone" placeholder="Enter your phone number" />
+                  </label>
+                  <label>
+                    <span>Subject *</span>
+                    <select name="subject" required>
+                      <option value="">Select a subject</option>
+                      <option value="admission">Admission Inquiry</option>
+                      <option value="academic">Academic Information</option>
+                      <option value="fees">Fee Structure</option>
+                      <option value="transport">Transport Service</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </label>
+                </div>
+                <label class="full">
+                  <span>Message *</span>
+                  <textarea name="message" rows="5" placeholder="Tell us how we can help you..." required></textarea>
+                </label>
+                <div class="form-actions">
+                  <button type="button" class="btn btn-outline" id="closeContactForm">Cancel</button>
+                  <button type="submit" class="btn btn-primary">Send Message</button>
+                </div>
+              </form>
+
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      {
+        pageLanguage: 'en',
+        includedLanguages: 'en,mr,hi', // English + Marathi +hindi
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      },
+      'google_translate_element'
+    );
+  }
+</script>
+
+<noscript>
+  <style>
+    [data-reveal]{opacity:1 !important; transform:none !important}
+  </style>
+</noscript>
+<script src="/static/clone.js"></script>
+
+<script type="text/javascript" 
+  src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+</script>
+
+
+    <!-- Removed duplicate clone.js include to avoid double-submitting admissions -->
+  </body>
+  </html>
+
+

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Login - Tiranga English School</title>
+  <link rel="stylesheet" href="/static/auth.css?v=1" />
+</head>
+<body class="auth-page">
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <div class="brand">
+        <div class="brand-logo">TES</div>
+        <div>
+          <div class="brand-title">Tiranga English School</div>
+          <div class="brand-sub">Student Portal Login</div>
+        </div>
+      </div>
+
+      {% for category, message in get_flashed_messages(with_categories=true) %}
+        <div class="alert">{{ message }}</div>
+      {% endfor %}
+
+      <form class="auth-form" method="post" action="{{ url_for('student_login') }}">
+        <label class="label" for="roll_no">Roll No</label>
+        <input class="input" id="roll_no" type="text" name="roll_no" placeholder="Enter roll number" required autocomplete="username" />
+
+        <label class="label" for="password">Password</label>
+        <input class="input" id="password" type="password" name="password" placeholder="Enter password" required autocomplete="current-password" />
+
+        <button class="btn" type="submit">Login</button>
+      </form>
+
+      <div class="note">
+        <a href="/" class="link">← Back to Home</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

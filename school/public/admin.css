@@ -1,0 +1,29 @@
+/* Basic admin styles to match the app look */
+:root{
+  --bg:#f3f6fb;--card:#fff;--text:#0f172a;--muted:#6b7280;--primary:#2563eb;--accent:#0ea5e9;--danger:#ef4444;--border:#e5e7eb
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+.container{max-width:1000px;margin:32px auto;padding:0 16px}
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.header h1{margin:0}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{background:var(--primary);color:#fff;border:none;border-radius:10px;padding:10px 14px;text-decoration:none;cursor:pointer;display:inline-block}
+.btn.secondary{background:var(--accent)}
+.btn.gray{background:#64748b}
+.btn.btn-danger{background:var(--danger)}
+.alert{background:#eef2ff;border:1px solid var(--border);padding:10px 12px;border-radius:10px;margin:8px 0}
+.filter{display:flex;gap:8px;margin:12px 0}
+.input{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:#fff}
+.form .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:10px}
+label{display:block;margin-bottom:6px;color:var(--muted);font-size:14px}
+
+/* Table */
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden}
+th,td{padding:10px 12px;border-bottom:1px solid var(--border);text-align:left;font-size:14px}
+tr:hover{background:#f8fafc}
+
+/* Auth reuse (optional) */
+.auth-page .btn{border-radius:10px}
+.note{margin-top:8px;color:var(--muted)}
+.pager{margin-top:10px;color:var(--muted)}

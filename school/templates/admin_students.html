@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Students</title>
+  <link rel="stylesheet" href="/static/home.css" />
+  <link rel="stylesheet" href="/static/auth.css" />
+  <style>
+    .container{max-width:1100px;margin:32px auto;padding:0 16px}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:8px 10px;border-bottom:1px solid #eee;text-align:left;font-size:14px}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+    .input{border:1px solid #d1d5db;border-radius:8px;padding:8px 10px}
+    .btn{background:#2563eb;color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Students</h1>
+    <form class="toolbar" method="get">
+      <input class="input" type="text" name="q" placeholder="Search" value="{{ q }}" />
+      <button class="btn" type="submit">Search</button>
+      <a class="btn" href="/admin/dashboard">Back</a>
+      <a class="btn" href="/admin/students/export">Export CSV</a>
+    </form>
+
+    <div>Total: {{ total }}</div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Roll No</th>
+          <th>Name</th>
+          <th>Class</th>
+          <th>Section</th>
+          <th>Phone</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in students %}
+        <tr>
+          <td>{{ s.roll_no }}</td>
+          <td>{{ s.name }}</td>
+          <td>{{ s.class_name or '' }}</td>
+          <td>{{ s.section or '' }}</td>
+          <td>{{ s.phone or '' }}</td>
+          <td>{{ s.email or '' }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div style="margin-top:12px;">Page {{ page }} of {{ pages }}</div>
+  </div>
+</body>
+</html>
